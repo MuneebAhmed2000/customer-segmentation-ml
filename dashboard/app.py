@@ -11,7 +11,6 @@ from data.generate_data import generate_customer_data
 from preprocessing.preprocess import preprocess_data
 from models.train_kmeans import train_kmeans
 from evaluation.find_optimal_clusters import find_optimal_clusters
-from evaluation.customer_personas import describe_clusters
 
 
 st.set_page_config(page_title="Customer Segmentation ML", layout="wide")
@@ -33,21 +32,33 @@ Pipeline:
 
 if st.button("Run Customer Segmentation Pipeline"):
 
-    # Generate Data
+    # ===============================
+    # GENERATE DATA
+    # ===============================
+
     df = generate_customer_data()
 
     st.subheader("Sample Customer Data")
     st.dataframe(df.head())
 
-    # Preprocess
+    # ===============================
+    # PREPROCESS DATA
+    # ===============================
+
     scaled_data = preprocess_data(df)
 
-    # Find best cluster number
+    # ===============================
+    # FIND OPTIMAL CLUSTERS
+    # ===============================
+
     best_k = find_optimal_clusters(scaled_data)
 
     st.success(f"Optimal number of clusters: {best_k}")
 
-    # Train model
+    # ===============================
+    # TRAIN MODEL
+    # ===============================
+
     model, clusters = train_kmeans(scaled_data, best_k)
 
     df["Cluster"] = clusters
@@ -55,10 +66,27 @@ if st.button("Run Customer Segmentation Pipeline"):
     st.subheader("Clustered Customers")
     st.dataframe(df.head())
 
-    # Cluster Summary
+    # ===============================
+    # CLUSTER SUMMARY
+    # ===============================
+
     st.subheader("Cluster Summary Statistics")
+
     summary = df.groupby("Cluster").mean()
     st.dataframe(summary)
+
+    # ===============================
+    # KPI DASHBOARD METRICS
+    # ===============================
+
+    st.subheader("Customer Metrics")
+
+    col1, col2, col3, col4 = st.columns(4)
+
+    col1.metric("Total Customers", len(df))
+    col2.metric("Average Income", f"${df['Annual_Income'].mean():,.0f}")
+    col3.metric("Average Spending Score", f"{df['Spending_Score'].mean():.1f}")
+    col4.metric("Segments Found", best_k)
 
     # ===============================
     # INTERACTIVE CLUSTER VISUALIZATION
@@ -166,7 +194,7 @@ if st.button("Run Customer Segmentation Pipeline"):
     st.success(f"Cluster {most_frequent} purchases most frequently.")
 
     # ===============================
-    # DOWNLOAD DATA BUTTON
+    # EXPORT DATA
     # ===============================
 
     st.subheader("Export Segmented Data")
