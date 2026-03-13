@@ -1,7 +1,8 @@
+streamlit
 pandas
 numpy
 scikit-learn
+plotly
 matplotlib
 seaborn
-streamlit
-plotly
+altair<5
