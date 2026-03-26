@@ -73,13 +73,11 @@ The dashboard automatically generates customer personas and identifies:
 
 ## Example Dashboard Output
 
-Add screenshots of the dashboard here.
-
 Example:
 
-screenshots/dashboard_overview.png
-screenshots/cluster_visualization.png
-screenshots/pca_visualization.png
+screenshots/dashboard.png
+screenshots/clusters.png
+screenshots/pca.png
 
 ---
 
