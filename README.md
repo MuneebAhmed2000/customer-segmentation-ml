@@ -75,9 +75,9 @@ The dashboard automatically generates customer personas and identifies:
 
 Example:
 
-screenshots/dashboard.png
-screenshots/clusters.png
-screenshots/pca.png
+![Dashboard](screenshots/dashboard.png)
+![Clusters](screenshots/clusters.png)
+![PCA Visualization](screenshots/pca.png)
 
 ---
 
